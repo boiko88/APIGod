@@ -3,4 +3,5 @@ from django.http import HttpResponse
 
 
 def home(request):
-    return HttpResponse("This is a test!")
+    context = {}
+    return render(request, 'home.html', context)
