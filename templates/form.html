@@ -1,8 +1,8 @@
-{% load static %}
+{% extends 'main.html' %}
 
 <div class="materialContainer">
 
-
+    {% block content %}
     <div class="box">
  
        <div class="title">LOGIN</div>
@@ -57,5 +57,7 @@
  
     </div>
     <link rel="stylesheet" href="{% static 'CSS/style.css' %}">
+    {% endblock content %}
  
  </div>
+

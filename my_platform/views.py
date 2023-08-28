@@ -34,6 +34,6 @@ def crypto(request):
     return render(request, 'crypto.html', context)
 
 
-def myForm(request):
+def currency(request):
     context = {}
-    return render(request, 'index.html', context)
+    return render(request, 'currency.html', context)
