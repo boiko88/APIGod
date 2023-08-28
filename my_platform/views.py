@@ -18,8 +18,6 @@ def myTime(request, year=datetime.now().year, month=datetime.now().strftime('%B'
     now = datetime.now()
     current_year = now.year
     current_day = now.day
-    
-    # Cakendar
     now = datetime.now()
     now.strftime("%A")
     
@@ -34,3 +32,8 @@ def myTime(request, year=datetime.now().year, month=datetime.now().strftime('%B'
 def crypto(request):
     context = {}
     return render(request, 'crypto.html', context)
+
+
+def myForm(request):
+    context = {}
+    return render(request, 'index.html', context)

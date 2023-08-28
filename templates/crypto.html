@@ -13,7 +13,16 @@
     </head>
     <body>
         <h2>This is Crypto page check</h2>
-        <script src="" async defer></script>
+        <form action="" method="POST">
+            {% csrf_token %}
+            <input type="text" name="amount">
+            <select name="from" id="">
+            </select>
+
+            <select name="from" id="">
+            </select>
+            <button type="submit">Count</button>
+        </form>
     </body>
 {% endblock  %}
 </html>

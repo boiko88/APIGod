@@ -10,4 +10,5 @@ urlpatterns = [
     path('', views.home, name="home"),
     path('time', views.myTime, name="time"),
     path('crypto', views.crypto, name="crypto"),
+    path('form', views.myForm, name="form"),
 ]
