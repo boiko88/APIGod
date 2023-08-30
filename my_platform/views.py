@@ -37,3 +37,13 @@ def crypto(request):
 def currency(request):
     context = {}
     return render(request, 'currency.html', context)
+
+
+def foliumMap(request):
+    context = {}
+    return render(request, 'fmap.html', context)
+
+
+def googleMap(request):
+    context = {}
+    return render(request, 'gmap.html', context)

@@ -11,4 +11,6 @@ urlpatterns = [
     path('time', views.myTime, name="time"),
     path('crypto', views.crypto, name="crypto"),
     path('currency', views.currency, name="currency"),
+    path('fmap', views.foliumMap, name="fmap"),
+    path('gmap', views.googleMap, name="gmap"),
 ]
