@@ -1,8 +1,8 @@
 from django.shortcuts import render
 import calendar
 from datetime import datetime
-
-
+import folium 
+import geocoder
 
 def home(request):
     context = {}
@@ -40,10 +40,16 @@ def currency(request):
 
 
 def foliumMap(request):
-    context = {}
+    my_map = folium.Map(location=[19, -12], zoom_start=2)
+    my_map = my_map._repr_html_()
+    context = {
+        'my_map': my_map,
+    }
     return render(request, 'fmap.html', context)
 
 
 def googleMap(request):
     context = {}
     return render(request, 'gmap.html', context)
+
+
