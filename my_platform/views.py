@@ -53,3 +53,8 @@ def googleMap(request):
     return render(request, 'gmap.html', context)
 
 
+def freeEmail(request):
+    context = {}
+    return render(request, 'email.html', context)
+
+

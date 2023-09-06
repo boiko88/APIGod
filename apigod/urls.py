@@ -13,4 +13,5 @@ urlpatterns = [
     path('currency', views.currency, name="currency"),
     path('fmap', views.foliumMap, name="fmap"),
     path('gmap', views.googleMap, name="gmap"),
+    path('email', views.freeEmail, name="email"),
 ]
