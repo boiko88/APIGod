@@ -17,8 +17,11 @@
                 <div class="form-left">
                     
                 </div>
-                <form class="form-detail" action="#" method="post" id="myform">
+                <form class="form-detail" method="post" action="." id="myform">
+                    {% csrf_token %}
                     <h2>This is an Email page</h2>
+                    {{form}}
+                    <button class="btn btn-secondary">Submit</button>
                     <br>
                 </form>
             </div>

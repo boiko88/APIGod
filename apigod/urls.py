@@ -14,4 +14,5 @@ urlpatterns = [
     path('fmap', views.foliumMap, name="fmap"),
     path('gmap', views.googleMap, name="gmap"),
     path('email', views.freeEmail, name="email"),
+    path('weather', views.weather, name="weather"),
 ]
