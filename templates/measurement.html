@@ -6,7 +6,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Weather Page</title>
+        <title>Measurement Page</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="">
@@ -17,9 +17,11 @@
                 <div class="form-left">   
                 </div>
                 <form class="form-detail" action="#" method="post" id="myform">
-                    {% csrf_token %}
-                    <h2>This is a Weather page</h2>
-                    <h2>{{ city_name }}</h2>
+                    <h2>This is a Measurement page</h2>
+                    <h2>The fahrenheit temperature is {{ actualt_fahrenheit }}</h2>
+                    <h2>The fahrenheit temperature is {{ actualt_fahrenheit.celsius }}</h2>
+                    <h2>The fahrenheit temperature is {{ actualt_fahrenheit.fahrenheit }}</h2>
+                    <h2>The fahrenheit temperature is {{ celcius }}</h2>
                     <br>
                 </form>
             </div>

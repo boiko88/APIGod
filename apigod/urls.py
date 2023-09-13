@@ -15,4 +15,5 @@ urlpatterns = [
     path('gmap', views.googleMap, name="gmap"),
     path('email', views.freeEmail, name="email"),
     path('weather', views.weather, name="weather"),
+    path('measurement', views.measurement, name="measurement"),
 ]

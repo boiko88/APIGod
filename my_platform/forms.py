@@ -8,7 +8,6 @@ class EmailForm(forms.Form):
     actual_message = forms.CharField(widget=forms.Textarea)
 
 
-# class ReportForm(ModelForm):
-#     class Meta:
-#         model = Email
-#         fields = '__all__'
+# class MeasurementForm(forms.Form):
+#     fahrenheit = forms.FloatField()
+#     celsius = fahrenheit-32*5/9

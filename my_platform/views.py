@@ -6,6 +6,11 @@ import folium
 from .forms import EmailForm
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
+import urllib.request
+import json
+from .models import Measurement
+import requests
+
 
 
 def home(request):
@@ -63,6 +68,7 @@ def foliumMap(request):
     current_year = now.year
 
     my_map = folium.Map(location=[19, -12], zoom_start=2)
+    folium.Marker([59.43, 24.75], tooltip='Click to know more', popup='Tallinn').add_to(my_map)
     my_map = my_map._repr_html_()
     context = {
         'my_map': my_map,
@@ -123,10 +129,42 @@ def weather(request):
     now = datetime.now()
     current_year = now.year
 
+    MAIN_URL = "http://api.openweathermap.org/data/2.5/weather?"
+    API_KEY = "YOUR_API_KEY"
+
+    url = MAIN_URL + "lat=59.43&lon=24.75&appid=" + API_KEY
+
+    response = requests.get(url).json()
+    temp = response['main']['temp']
+    city_name = response['name']
+
+    print(city_name)
+
     context = {
         'current_year': current_year,
+        'response': response,
+        'temp': temp,
+        'city_name': city_name,
     }
     return render(request, 'weather.html', context)
+
+
+def measurement(request):
+    now = datetime.now()
+    current_year = now.year
+
+    # actualt_fahrenheit = Measurement.objects.all()
+
+    fahrenheit = 48
+    celcius = fahrenheit - 32 *5/9
+    print(celcius)
+
+    context = {
+        'current_year': current_year,
+        # 'actualt_fahrenheit': actualt_fahrenheit,
+        'celcius': celcius,
+    }
+    return render(request, 'measurement.html', context)
 
 
 
