@@ -130,12 +130,12 @@ def weather(request):
     current_year = now.year
 
     MAIN_URL = "http://api.openweathermap.org/data/2.5/weather?"
-    API_KEY = "YOUR_API_KEY"
+    API_KEY = "API_KEY"
 
-    url = MAIN_URL + "lat=59.43&lon=24.75&appid=" + API_KEY
+    url = MAIN_URL + "lat=59.43&lon=24.75&units=metric&appid=" + API_KEY
 
     response = requests.get(url).json()
-    temp = response['main']['temp']
+    temp = round(response['main']['temp'], 1)
     city_name = response['name']
 
     print(city_name)

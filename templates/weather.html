@@ -19,7 +19,8 @@
                 <form class="form-detail" action="#" method="post" id="myform">
                     {% csrf_token %}
                     <h2>This is a Weather page</h2>
-                    <h2>{{ city_name }}</h2>
+                    <h2>Your city is {{ city_name }}</h2>
+                    <h2>The actual temperature is {{ temp }}</h2>
                     <br>
                 </form>
             </div>
