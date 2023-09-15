@@ -33,7 +33,7 @@ def myTime(request, year=datetime.now().year, month=datetime.now().strftime('%B'
     current_year = now.year
     current_day = now.day
     now = datetime.now()
-    now.strftime("%A")
+    now.strftime('%A')
     
     context = {
         'current_year': current_year,
@@ -54,6 +54,8 @@ def crypto(request):
 
 
 def currency(request):
+    response = requests.get(url='https://api.exchangerate-api.com/v4/latest/USD').json()
+    currencies = response.get('rates')
     now = datetime.now()
     current_year = now.year
 
@@ -104,7 +106,7 @@ def freeEmail(request):
                 'email': email,
                 'actual_message': actual_message,
             })
-            print("It works")
+            print('It works')
             send_mail('The report form is here', 
                       'This is the message',
                       'noreply@TonyBoiko88.com',
@@ -129,22 +131,37 @@ def weather(request):
     now = datetime.now()
     current_year = now.year
 
-    MAIN_URL = "http://api.openweathermap.org/data/2.5/weather?"
-    API_KEY = "API_KEY"
+    MAIN_URL = 'http://api.openweathermap.org/data/2.5/weather?'
+    API_KEY = 'api_key'
+    CITY = 'lat=55.75&lon=37.61' # Moscow
+    CITY_1 = 'lat=59.26&lon=25.75' # Tallinn
 
-    url = MAIN_URL + "lat=59.43&lon=24.75&units=metric&appid=" + API_KEY
+
+    url = MAIN_URL + CITY + '&units=metric&appid=' + API_KEY
 
     response = requests.get(url).json()
     temp = round(response['main']['temp'], 1)
+    pressure = response['main']['pressure']
+    humidity = response['main']['humidity']
+    wind = response['wind']['speed']
+    main = response['weather'][0]['main']
+    description = response['weather'][0]['description']
+    icon = response['weather'][0]['icon']
     city_name = response['name']
 
-    print(city_name)
+    # print(city_name)
 
     context = {
         'current_year': current_year,
         'response': response,
         'temp': temp,
         'city_name': city_name,
+        'pressure': pressure,
+        'humidity': humidity,
+        'wind': wind,
+        'main': main,
+        'description': description,
+        'icon': icon,
     }
     return render(request, 'weather.html', context)
 
