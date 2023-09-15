@@ -10,6 +10,8 @@ import urllib.request
 import json
 from .models import Measurement
 import requests
+from django.conf import settings as conf_settings
+
 
 
 
@@ -54,7 +56,7 @@ def crypto(request):
 
 
 def currency(request):
-    response = requests.get(url='https://api.exchangerate-api.com/v4/latest/USD').json()
+    response = requests.get(url='https://api.exchangerate-api.com/v4/latest/USD').json() # It seems that this line slows down the performance of the platform
     currencies = response.get('rates')
     now = datetime.now()
     current_year = now.year
@@ -132,7 +134,7 @@ def weather(request):
     current_year = now.year
 
     MAIN_URL = 'http://api.openweathermap.org/data/2.5/weather?'
-    API_KEY = 'api_key'
+    API_KEY = conf_settings.WEATHER_KEY
     CITY = 'lat=55.75&lon=37.61' # Moscow
     CITY_1 = 'lat=59.26&lon=25.75' # Tallinn
 
