@@ -56,13 +56,28 @@ def crypto(request):
 
 
 def currency(request):
-    response = requests.get(url='https://api.exchangerate-api.com/v4/latest/USD').json() # It seems that this line slows down the performance of the platform
-    currencies = response.get('rates')
+    # The actual key is hidden in .env file and imported from settings.py
+    EXCHANGERATE_KEY = conf_settings.EXCHANGERATE_KEY
+
+    # USD to RUB
+    USD_RUB = requests.get(url='https://v6.exchangerate-api.com/v6/' + EXCHANGERATE_KEY + 'pair/USD/RUB/').json()
+    USD_RUB = round(USD_RUB['conversion_rate'], 1)
+    # EUR to RUB
+    EUR_RUB = requests.get(url='https://v6.exchangerate-api.com/v6/' + EXCHANGERATE_KEY + 'pair/EUR/RUB/').json()
+    EUR_RUB = round(EUR_RUB['conversion_rate'], 1)
+    # CNY to RUB
+    CNY_RUB = requests.get(url='https://v6.exchangerate-api.com/v6/' + EXCHANGERATE_KEY + 'pair/CNY/RUB/').json()
+    CNY_RUB = round(CNY_RUB['conversion_rate'], 1)
+
+
     now = datetime.now()
     current_year = now.year
 
     context = {
         'current_year': current_year,
+        'USD_RUB': USD_RUB,
+        'EUR_RUB': EUR_RUB,
+        'CNY_RUB': CNY_RUB,
     }
     return render(request, 'currency.html', context)
 
