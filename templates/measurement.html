@@ -20,9 +20,22 @@
                     <h2>This is a Measurement page</h2>
                     <h2>The fahrenheit temperature is {{ celcius }}</h2>
                     <br>
+                    <p>
+                    <label>Fahrenheit</label>
+                    <input id="inputFahrenheit" type="number" placeholder="Fahrenheit" oninput="temperatureConverter(this.value)" onchange="temperatureConverter(this.value)">
+                    </p>
+                    <p>Celcius: <span id="outputCelcius"></span></p>
+                      
+                    <script>
+                    function temperatureConverter(valNum) {
+                    valNum = parseFloat(valNum);
+                    document.getElementById("outputCelcius").innerHTML=(valNum-32)/1.8;
+                    }
+                    </script>
+                      
                 </form>
             </div>
         </div>
     </body>
-{% endblock  %}
 </html>
+{% endblock  %}

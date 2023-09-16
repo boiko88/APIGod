@@ -3,7 +3,7 @@ from django.contrib import messages
 import calendar
 from datetime import datetime
 import folium 
-from .forms import EmailForm
+from .forms import EmailForm, FahrenheitForm
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
 import urllib.request
@@ -187,16 +187,8 @@ def measurement(request):
     now = datetime.now()
     current_year = now.year
 
-    # actualt_fahrenheit = Measurement.objects.all()
-
-    fahrenheit = 48
-    celcius = fahrenheit - 32 *5/9
-    print(celcius)
-
     context = {
         'current_year': current_year,
-        # 'actualt_fahrenheit': actualt_fahrenheit,
-        'celcius': celcius,
     }
     return render(request, 'measurement.html', context)
 

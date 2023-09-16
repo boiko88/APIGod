@@ -11,3 +11,7 @@ class EmailForm(forms.Form):
 # class MeasurementForm(forms.Form):
 #     fahrenheit = forms.FloatField()
 #     celsius = fahrenheit-32*5/9
+
+
+class FahrenheitForm(forms.Form):
+    fahrenheit = forms.IntegerField()
