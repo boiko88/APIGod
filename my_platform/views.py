@@ -193,4 +193,8 @@ def measurement(request):
     return render(request, 'measurement.html', context)
 
 
+def flagsDemo(request):
+    return render(request, 'flags.html')
+
+
 
