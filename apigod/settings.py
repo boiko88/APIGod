@@ -16,6 +16,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get('SECRET_KEY')
 WEATHER_KEY = os.environ.get('WEATHER_KEY')
 EXCHANGERATE_KEY = os.environ.get('EXCHANGERATE_KEY')
+COINMARKETCAP_KEY = os.environ.get('COINMARKETCAP_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True

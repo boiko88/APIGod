@@ -3,14 +3,13 @@ from django.contrib import messages
 import calendar
 from datetime import datetime
 import folium 
-from .forms import EmailForm, FahrenheitForm
+from .forms import EmailForm
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
-import urllib.request
 import json
-from .models import Measurement
 import requests
 from django.conf import settings as conf_settings
+from requests import Request, Session
 
 
 
@@ -46,11 +45,36 @@ def myTime(request, year=datetime.now().year, month=datetime.now().strftime('%B'
 
 
 def crypto(request):
+    url = 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest'
+
+    parameters = {
+    'slug': 'bitcoin',
+    'convert': 'USD',
+    }
+
+    coinmarketcap_key = conf_settings.COINMARKETCAP_KEY
+
+    headers = {
+    'Accepts': 'application/json',
+    'X-CMC_PRO_API_KEY': coinmarketcap_key,
+    }
+
+    session = Session()
+    session.headers.update(headers)
+
+    response = session.get(url, params=parameters)
+
+    print(json.loads(response.text)['data']['1']['quote']['USD']['price'])
+
+    bitcoin_rate = json.loads(response.text)['data']['1']['quote']['USD']['price']
+    bitcoin_rate = round(bitcoin_rate, 1)
+
     now = datetime.now()
     current_year = now.year
 
     context = {
         'current_year': current_year,
+        'bitcoin_rate': bitcoin_rate,
     }
     return render(request, 'crypto.html', context)
 

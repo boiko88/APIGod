@@ -25,17 +25,20 @@
 				{% comment %} <img src={% static 'images/form-v2.jpg' %} alt="form"> {% endcomment %}
 				
 			</div>
+			
 			<form class="form-detail" action="#" method="post" id="myform">
 				<h2>Choose your Crypto</h2>
 				<div class="form-row">
-					<label for="full-name">From:</label>
+					<h2>Bitcoiun is ${{ bitcoin_rate }} today</h2>
+					<br>
+					{% comment %} <label for="full-name">From:</label>
 					<select class="form-control">
-					</select>
+					</select> {% endcomment %}
 				</div>
 				<div class="form-row">
-					<label for="your_email">To:</label>
+					{% comment %} <label for="your_email">To:</label>
 					<select class="form-control">
-					</select>
+					</select> {% endcomment %}
 				</div>
 				<br>
 				<div class="form-row-last">
