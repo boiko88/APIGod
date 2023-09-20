@@ -21,15 +21,23 @@
                     <br>
                     <p>
                     <label>Fahrenheit</label>
-                    <input id="inputFahrenheit" type="number" placeholder="Fahrenheit" oninput="temperatureConverter(this.value)" onchange="temperatureConverter(this.value)">
+                    <input id="inputFahrenheit" type="number" placeholder="Fahrenheit" oninput="temperatureConverter(this.id, this.value)" onchange="temperatureConverter(this.id, this.value)">
                     </p>
-                    <input id="inputKelvin" type="number" placeholder="Kelvin" oninput="temperatureConverter(this.value)" onchange="temperatureConverter(this.value)">
+                    <p>
+                    <label>Kelvin</label>
+                    <input id="inputKelvin" type="number" placeholder="Kelvin" oninput="temperatureConverter(this.id, this.value)" onchange="temperatureConverter(this.id, this.value)">
+                    </p>
                     <br>
-                    <p>Celcius: <span id="outputCelcius"></span></p>
+                    <p>Celsius: <span id="outputCelcius"></span></p>
+
                     <script>
-                    function temperatureConverter(valNum) {
+                    function temperatureConverter(inputId, valNum) {
                     valNum = parseFloat(valNum);
-                    document.getElementById("outputCelcius").innerHTML=(valNum-32)/1.8;
+                    if (inputId === "inputFahrenheit") {
+                        document.getElementById("outputCelcius").innerHTML = (valNum - 32) / 1.8;
+                    } else if (inputId === "inputKelvin") {
+                        document.getElementById("outputCelcius").innerHTML = valNum - 273.15;
+                    }
                     }
                     </script>
                       
