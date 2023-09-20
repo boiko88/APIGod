@@ -32,7 +32,7 @@
 
                     <script>
                     function temperatureConverter(inputId, valNum) {
-                    valNum = parseFloat(valNum);
+                    valNum = parseFloat(valNum);    
                     if (inputId === "inputFahrenheit") {
                         document.getElementById("outputCelcius").innerHTML = (valNum - 32) / 1.8;
                     } else if (inputId === "inputKelvin") {
@@ -40,6 +40,26 @@
                     }
                     }
                     </script>
+                    <p>
+                    <label>Miles</label>
+                    <input id="inputMiles" type="number" placeholder="Miles" oninput="distanceConverter(this.id, this.value)" onchange="distanceConverter(this.id, this.value)">
+                    </p>
+                    <p>
+                    <label>Kilometers</label>
+                    <input id="inputKilometers" type="number" placeholder="Kilometers" oninput="distanceConverter(this.id, this.value)" onchange="distanceConverter(this.id, this.value)">
+                    </p>
+                    <br>
+                    <p>Kilometers: <span id="outputKilometers"></span></p>
+                    <script>
+                    function distanceConverter(inputId, valNum) {
+                    valNum = parseFloat(valNum);
+                    if (inputId === "inputMiles") {
+                        document.getElementById("outputKilometers").innerHTML = valNum * 1.60934;
+                    } else if (inputId === "inputKilometers") {
+                        document.getElementById("outputKilometers").innerHTML = valNum / 1.60934;
+                    }
+                    }
+                      </script>
                       
                 </form>
             </div>
