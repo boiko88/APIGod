@@ -69,12 +69,24 @@ def crypto(request):
     bitcoin_rate = json.loads(response.text)['data']['1']['quote']['USD']['price']
     bitcoin_rate = round(bitcoin_rate, 1)
 
+    parameters = {
+    'slug': 'ethereum',
+    'convert': 'USD',
+}
+
+    response = session.get(url, params=parameters)
+    print(json.loads(response.text)['data']['1027']['quote']['USD']['price'])
+
+    etherium_rate = json.loads(response.text)['data']['1027']['quote']['USD']['price']
+    etherium_rate = round(etherium_rate, 1)
+
     now = datetime.now()
     current_year = now.year
 
     context = {
         'current_year': current_year,
         'bitcoin_rate': bitcoin_rate,
+        'etherium_rate': etherium_rate,
     }
     return render(request, 'crypto.html', context)
 
