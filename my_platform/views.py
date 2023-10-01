@@ -200,4 +200,8 @@ def flagsDemo(request):
     return render(request, 'flags.html')
 
 
+def generatePassword(request):
+    return render(request, 'generate_password.html')
+
+
 

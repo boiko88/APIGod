@@ -17,4 +17,5 @@ urlpatterns = [
     path('weather', views.weather, name="weather"),
     path('measurement', views.measurement, name="measurement"),
     path('flags', views.flagsDemo, name="flags"),
+    path('generate-password', views.generatePassword, name="generate-password"),
 ]
