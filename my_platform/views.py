@@ -15,11 +15,8 @@ from requests import Request, Session
 
 
 def home(request):
-    now = datetime.now()
-    current_year = now.year
-
     context = {
-        'current_year': current_year,
+
     }
     return render(request, 'home.html', context)
 
@@ -31,13 +28,11 @@ def myTime(request, year=datetime.now().year, month=datetime.now().strftime('%B'
     
     # Get current time
     now = datetime.now()
-    current_year = now.year
     current_day = now.day
     now = datetime.now()
     now.strftime('%A')
     
     context = {
-        'current_year': current_year,
         'current_day': current_day,
         'now': now,
         }
@@ -80,11 +75,7 @@ def crypto(request):
     etherium_rate = json.loads(response.text)['data']['1027']['quote']['USD']['price']
     etherium_rate = round(etherium_rate, 1)
 
-    now = datetime.now()
-    current_year = now.year
-
     context = {
-        'current_year': current_year,
         'bitcoin_rate': bitcoin_rate,
         'etherium_rate': etherium_rate,
     }
@@ -105,12 +96,7 @@ def currency(request):
     CNY_RUB = requests.get(url='https://v6.exchangerate-api.com/v6/' + EXCHANGERATE_KEY + 'pair/CNY/RUB/').json()
     CNY_RUB = round(CNY_RUB['conversion_rate'], 1)
 
-
-    now = datetime.now()
-    current_year = now.year
-
     context = {
-        'current_year': current_year,
         'USD_RUB': USD_RUB,
         'EUR_RUB': EUR_RUB,
         'CNY_RUB': CNY_RUB,
@@ -119,33 +105,22 @@ def currency(request):
 
 
 def foliumMap(request):
-    now = datetime.now()
-    current_year = now.year
-
     my_map = folium.Map(location=[19, -12], zoom_start=2)
     folium.Marker([59.43, 24.75], tooltip='Click to know more', popup='Tallinn').add_to(my_map)
     my_map = my_map._repr_html_()
     context = {
         'my_map': my_map,
-        'current_year': current_year,
     }
     return render(request, 'fmap.html', context)
 
 
 def googleMap(request):
-    now = datetime.now()
-    current_year = now.year
-
     context = {
-        'current_year': current_year,
     }
     return render(request, 'gmap.html', context)
 
 
 def freeEmail(request):
-    now = datetime.now()
-    current_year = now.year
-
     if request.method == 'POST':
         form = EmailForm(request.POST)
 
@@ -175,15 +150,11 @@ def freeEmail(request):
 
     context = {
         'form': form,
-        'current_year': current_year,
     }
     return render(request, 'email.html', context)
 
 
 def weather(request):
-    now = datetime.now()
-    current_year = now.year
-
     MAIN_URL = 'http://api.openweathermap.org/data/2.5/weather?'
     API_KEY = conf_settings.WEATHER_KEY
     CITY = 'lat=55.75&lon=37.61' # Moscow
@@ -205,7 +176,6 @@ def weather(request):
     # print(city_name)
 
     context = {
-        'current_year': current_year,
         'response': response,
         'temp': temp,
         'city_name': city_name,
@@ -220,11 +190,8 @@ def weather(request):
 
 
 def measurement(request):
-    now = datetime.now()
-    current_year = now.year
-
     context = {
-        'current_year': current_year,
+
     }
     return render(request, 'measurement.html', context)
 
