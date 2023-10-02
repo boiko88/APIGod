@@ -16,3 +16,4 @@ class PasswordForm(forms.Form):
         ('hard', 'Hard'),
     ]
     difficulty = forms.ChoiceField(choices=DIFFICULTY_CHOICES)
+    length = forms.IntegerField(min_value=6, max_value=30)

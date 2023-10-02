@@ -200,25 +200,28 @@ def flagsDemo(request):
     return render(request, 'flags.html')
 
 
-def generatePassword(request, difficulty='hard'):
+def generatePassword(request):
     numbers = ['1','2','3','4','5','6','7','8','9','0']
     special_symbols = ['+','-','/','*','!','&','$','#','?','=','@',]
     length = 19
     lowercase_letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
     uppercase_letter = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
     password = ''
-    if difficulty == 'very_easy':
-        charset = numbers
-    elif difficulty == 'easy':
-        charset = numbers + special_symbols
-    elif difficulty == 'medium':
-        charset = numbers + special_symbols + lowercase_letters
-    else:
-        charset = numbers + special_symbols + lowercase_letters + uppercase_letter
+    form = PasswordForm(request.POST)
+    if form.is_valid():
+        difficulty = form.cleaned_data['difficulty']
+        length = form.cleaned_data['length']
+        if difficulty == 'very_easy':
+            charset = numbers
+        elif difficulty == 'easy':
+            charset = numbers + special_symbols
+        elif difficulty == 'medium':
+            charset = numbers + special_symbols + lowercase_letters
+        else:
+            charset = numbers + special_symbols + lowercase_letters + uppercase_letter
 
-    length = 19
-    password_list = random.sample(charset, length)
-    password = ''.join(password_list)
+        password_list = random.choices(charset, k=length)
+        password = ''.join(password_list)
 
     context = {
         'password': password,
