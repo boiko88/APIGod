@@ -3,14 +3,14 @@ from django.contrib import messages
 import calendar
 from datetime import datetime
 import folium 
-from .forms import EmailForm
+from .forms import EmailForm, PasswordForm
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
 import json
 import requests
 from django.conf import settings as conf_settings
 from requests import Request, Session
-
+import random 
 
 
 
@@ -200,8 +200,31 @@ def flagsDemo(request):
     return render(request, 'flags.html')
 
 
-def generatePassword(request):
-    return render(request, 'generate_password.html')
+def generatePassword(request, difficulty='hard'):
+    numbers = ['1','2','3','4','5','6','7','8','9','0']
+    special_symbols = ['+','-','/','*','!','&','$','#','?','=','@',]
+    length = 19
+    lowercase_letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
+    uppercase_letter = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+    password = ''
+    if difficulty == 'very_easy':
+        charset = numbers
+    elif difficulty == 'easy':
+        charset = numbers + special_symbols
+    elif difficulty == 'medium':
+        charset = numbers + special_symbols + lowercase_letters
+    else:
+        charset = numbers + special_symbols + lowercase_letters + uppercase_letter
+
+    length = 19
+    password_list = random.sample(charset, length)
+    password = ''.join(password_list)
+
+    context = {
+        'password': password,
+        'form': PasswordForm(),
+    }
+    return render(request, 'generate_password.html', context)
 
 
 
