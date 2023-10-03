@@ -208,6 +208,7 @@ def generatePassword(request):
     uppercase_letter = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
     password = ''
     form = PasswordForm(request.POST)
+    difficulty = form.initial.get('difficulty', 'very_easy')
     if form.is_valid():
         difficulty = form.cleaned_data['difficulty']
         length = form.cleaned_data['length']
@@ -225,9 +226,10 @@ def generatePassword(request):
 
     context = {
         'password': password,
-        'form': PasswordForm(),
+        'form': form,
+        'difficulty': difficulty,
+        'length': length,
     }
     return render(request, 'generate_password.html', context)
-
 
 
