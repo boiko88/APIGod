@@ -3,15 +3,15 @@ from django.contrib import messages
 import calendar
 from datetime import datetime
 import folium 
-from .forms import EmailForm, PasswordForm
+from .forms import EmailForm, PasswordForm, AddressForm
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
 import json
 import requests
 from django.conf import settings as conf_settings
-from requests import Request, Session
+from requests import Session
 import random 
-
+from geopy.geocoders import Nominatim
 
 
 def home(request):
@@ -105,13 +105,33 @@ def currency(request):
 
 
 def foliumMap(request):
-    my_map = folium.Map(location=[19, -12], zoom_start=2)
-    folium.Marker([59.43, 24.75], tooltip='Click to know more', popup='Tallinn').add_to(my_map)
-    my_map = my_map._repr_html_()
-    context = {
-        'my_map': my_map,
-    }
-    return render(request, 'fmap.html', context)
+    if request.method == 'POST':
+        address = request.POST.get('address')
+        geolocator = Nominatim(user_agent='myapp')
+        location = geolocator.geocode(address)
+        if location:
+            my_map = folium.Map(location=[location.latitude, location.longitude], zoom_start=10)
+            folium.Marker([location.latitude, location.longitude], tooltip='Click to know more', popup=address).add_to(my_map)
+            my_map = my_map._repr_html_()
+            context = {
+                'my_map': my_map,
+                'address': address,
+            }
+            return render(request, 'fmap.html', context)
+        else:
+            error_message = 'Could not find location for address: {}'.format(address)
+            context = {
+                'error_message': error_message,
+            }
+            return render(request, 'fmap.html', context)
+    else:
+        my_map = folium.Map(location=[19, -12], zoom_start=2)
+        folium.Marker([59.43, 24.75], tooltip='Click to know more', popup='Tallinn').add_to(my_map)
+        my_map = my_map._repr_html_()
+        context = {
+            'my_map': my_map,
+        }
+        return render(request, 'fmap.html', context)
 
 
 def googleMap(request):

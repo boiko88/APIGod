@@ -17,14 +17,21 @@
             <div class="form-v2-content">
                 <div class="form-left">   
                 </div>
-                <form class="form-detail" action="#" method="post" id="myform">
+                <form class="form-detail" action="{% url 'fmap' %}" method="post" id="myform">
+                    {% csrf_token %}
                     <h2>This is a Folium map page</h2>
-                    <label>Type your address here</label>
-                    <input type="text" class="register" value="Confirm">
+                    <label>Type your address here and press enter</label>
+                    <input type="text" class="register" name="address">
                     <div class="input-group mb-2">
-                        <h1>{{ my_map|safe }}</h1>
+                    <h1>{{ my_map|safe }}</h1>
                     </div>
                     <br>
+                    {% if error_message %}
+                    <p>{{ error_message }}</p>
+                    {% endif %}
+                    {% if address %}
+                    <p>{{ address }}</p>
+                    {% endif %}
                 </form>
             </div>
         </div>
