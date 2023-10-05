@@ -3,7 +3,7 @@ from django.contrib import messages
 import calendar
 from datetime import datetime
 import folium 
-from .forms import EmailForm, PasswordForm, AddressForm
+from .forms import EmailForm, PasswordForm
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
 import json
@@ -72,12 +72,12 @@ def crypto(request):
     response = session.get(url, params=parameters)
     print(json.loads(response.text)['data']['1027']['quote']['USD']['price'])
 
-    etherium_rate = json.loads(response.text)['data']['1027']['quote']['USD']['price']
-    etherium_rate = round(etherium_rate, 1)
+    ethereum_rate = json.loads(response.text)['data']['1027']['quote']['USD']['price']
+    ethereum_rate = round(ethereum_rate, 1)
 
     context = {
         'bitcoin_rate': bitcoin_rate,
-        'etherium_rate': etherium_rate,
+        'etherium_rate': ethereum_rate,
     }
     return render(request, 'crypto.html', context)
 

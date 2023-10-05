@@ -17,7 +17,3 @@ class PasswordForm(forms.Form):
     ]
     difficulty = forms.ChoiceField(choices=DIFFICULTY_CHOICES)
     length = forms.IntegerField(min_value=6, max_value=30)
-
-
-class AddressForm(forms.Form):
-    address = forms.CharField(label='Type your address here', max_length=100)
