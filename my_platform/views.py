@@ -200,11 +200,23 @@ def weather(request):
     url6 = MAIN_URL6 + CITY + '&units=metric&appid=' + API_KEY
 
     response2 = requests.get(url6).json()
-    data3h = temp3h = response2['list'][0]
-    temp3h = response2['list'][0]['main']['temp']
-    description3h = response2['list'][0]['weather'][0]['description']
-    icon3h = response2['list'][0]['weather'][0]['icon']
-    pprint(icon3h)
+    data3h = response2['list'][1]
+    temp3h = response2['list'][1]['main']['temp']
+    description3h = response2['list'][1]['weather'][0]['description']
+    icon3h = response2['list'][1]['weather'][0]['icon']
+    # pprint(data3h)
+
+    data6h = response2['list'][2]
+    temp6h = response2['list'][2]['main']['temp']
+    description6h = response2['list'][2]['weather'][0]['description']
+    icon6h = response2['list'][2]['weather'][0]['icon']
+    # pprint(data6h)
+
+    data24h = response2['list'][8]
+    temp24h = response2['list'][8]['main']['temp']
+    description24h = response2['list'][8]['weather'][0]['description']
+    icon24h = response2['list'][8]['weather'][0]['icon']
+    # pprint(data24h)
 
     context = {
         'response': response,
@@ -219,6 +231,14 @@ def weather(request):
         'temp3h': temp3h,
         'description3h': description3h,
         'icon3h': icon3h,
+        'temp6h': temp6h,
+        'description6h': description6h,
+        'icon6h': icon6h,
+        'data24h': data24h,
+        'temp24h': temp24h,
+        'description24h': description24h,
+        'icon24h': icon24h,
+
     }
     return render(request, 'weather.html', context)
 
