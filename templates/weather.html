@@ -25,10 +25,38 @@
                     <h2>The humidity is {{ humidity }}</h2>
                     <h2>The wind speed is {{ wind }}</h2>
                     <h2> Now we have {{ main }}, {{ description }}<img src="http://openweathermap.org/img/w/{{icon}}.png" alt="Image" style="width:70px"></h2>
+                    <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                        <div class="carousel-inner">
+                          <div class="carousel-item active">
+                            <h2>The temperature in 3 hours will be {{ temp3h }}</h2>
+                            <h2>It will be {{ description3h }} in 3 hours</h2>
+                            <h2>It will be <img src="http://openweathermap.org/img/w/{{icon3h}}.png" alt="Image" style="width:70px"> in 3 hours</h2>
+                          </div>
+                          <div class="carousel-item">
+                            <h2>The temperature in 6 hours will be {{ temp6h }}</h2>
+                            <h2>It will be {{ description6h }} in 6 hours</h2>
+                            <h2>It will be <img src="http://openweathermap.org/img/w/{{icon6h}}.png" alt="Image" style="width:70px"> in 6 hours</h2>
+                          </div>
+                          <div class="carousel-item">
+                            <h2>The temperature in 24 hours will be {{ temp24h }}</h2>
+                            <h2>It will be {{ description24h }} in 24 hours</h2>
+                            <h2>It will be <img src="http://openweathermap.org/img/w/{{icon24h}}.png" alt="Image" style="width:70px"> in 24 hours</h2>
+                          </div>
+                        </div>
+                        <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                          <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                          <span class="sr-only">Next</span>
+                        </a>
+                    </div>
+                </body>
                     <br>
                 </form>
             </div>
         </div>
-    </body>
+        
 {% endblock  %}
 </html>

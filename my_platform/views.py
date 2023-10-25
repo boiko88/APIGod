@@ -1,17 +1,20 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
+from django.core.mail import send_mail
+from django.template.loader import render_to_string
+from django.conf import settings as conf_settings
+
 import calendar
 from datetime import datetime
 import folium 
-from .forms import EmailForm, PasswordForm
-from django.core.mail import send_mail
-from django.template.loader import render_to_string
 import json
 import requests
-from django.conf import settings as conf_settings
 from requests import Session
 import random 
 from geopy.geocoders import Nominatim
+from pprint import pprint
+
+from .forms import EmailForm, PasswordForm
 
 
 def home(request):
@@ -43,15 +46,15 @@ def crypto(request):
     url = 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest'
 
     parameters = {
-    'slug': 'bitcoin',
-    'convert': 'USD',
+        'slug': 'bitcoin',
+        'convert': 'USD',
     }
 
     coinmarketcap_key = conf_settings.COINMARKETCAP_KEY
 
     headers = {
-    'Accepts': 'application/json',
-    'X-CMC_PRO_API_KEY': coinmarketcap_key,
+        'Accepts': 'application/json',
+        'X-CMC_PRO_API_KEY': coinmarketcap_key,
     }
 
     session = Session()
@@ -65,9 +68,9 @@ def crypto(request):
     bitcoin_rate = round(bitcoin_rate, 1)
 
     parameters = {
-    'slug': 'ethereum',
-    'convert': 'USD',
-}
+        'slug': 'ethereum',
+        'convert': 'USD',
+    }
 
     response = session.get(url, params=parameters)
     print(json.loads(response.text)['data']['1027']['quote']['USD']['price'])
@@ -77,7 +80,7 @@ def crypto(request):
 
     context = {
         'bitcoin_rate': bitcoin_rate,
-        'etherium_rate': ethereum_rate,
+        'ethereum_rate': ethereum_rate,
     }
     return render(request, 'crypto.html', context)
 
@@ -167,7 +170,6 @@ def freeEmail(request):
         form = EmailForm()
         messages.warning(request, 'The message was not sent')
 
-
     context = {
         'form': form,
     }
@@ -179,7 +181,6 @@ def weather(request):
     API_KEY = conf_settings.WEATHER_KEY
     CITY = 'lat=55.75&lon=37.61' # Moscow
     CITY_1 = 'lat=59.26&lon=25.75' # Tallinn
-
 
     url = MAIN_URL + CITY + '&units=metric&appid=' + API_KEY
 
@@ -193,7 +194,17 @@ def weather(request):
     icon = response['weather'][0]['icon']
     city_name = response['name']
 
-    # print(city_name)
+    # print(response)
+
+    MAIN_URL6 = 'http://api.openweathermap.org/data/2.5/forecast?'
+    url6 = MAIN_URL6 + CITY + '&units=metric&appid=' + API_KEY
+
+    response2 = requests.get(url6).json()
+    data3h = temp3h = response2['list'][0]
+    temp3h = response2['list'][0]['main']['temp']
+    description3h = response2['list'][0]['weather'][0]['description']
+    icon3h = response2['list'][0]['weather'][0]['icon']
+    pprint(icon3h)
 
     context = {
         'response': response,
@@ -205,6 +216,9 @@ def weather(request):
         'main': main,
         'description': description,
         'icon': icon,
+        'temp3h': temp3h,
+        'description3h': description3h,
+        'icon3h': icon3h,
     }
     return render(request, 'weather.html', context)
 
@@ -221,8 +235,8 @@ def flagsDemo(request):
 
 
 def generatePassword(request):
-    numbers = ['1','2','3','4','5','6','7','8','9','0']
-    special_symbols = ['+','-','/','*','!','&','$','#','?','=','@',]
+    numbers = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0']
+    special_symbols = ['+', '-', '/', '*', '!', '&', '$', '#', '?', '=', '@',]
     length = 19
     lowercase_letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
     uppercase_letter = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
