@@ -19,9 +19,7 @@ from .forms import EmailForm, PasswordForm, CustomUserCreationForm
 
 
 def home(request):
-    context = {
-
-    }
+    context = {}
     return render(request, 'home.html', context)
 
 
@@ -251,10 +249,6 @@ def measurement(request):
     return render(request, 'measurement.html', context)
 
 
-def flagsDemo(request):
-    return render(request, 'flags.html')
-
-
 def generatePassword(request):
     numbers = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0']
     special_symbols = ['+', '-', '/', '*', '!', '&', '$', '#', '?', '=', '@',]
@@ -312,3 +306,32 @@ def userRegister(request):
         }
     
     return render(request, 'user_registration.html', context)
+
+
+def logoutUser(request):
+    logout(request)
+    return redirect('home')
+
+
+def loginUser(request):
+    if request.method == 'POST':
+        # Get the username and password from the POST data
+        username = request.POST.get('username').lower()
+        password = request.POST.get('password')
+
+        # Authenticate the user with the given username and password
+        user = authenticate(request, username=username, password=password)
+
+        if user is not None:
+            # If the user is authenticated, log them in and redirect to the
+            # store page
+            login(request, user)
+            return redirect('home')
+        else:
+            # If the user is not authenticated, show an error message
+            messages.error(request, 'Username OR password does not exist')
+
+    # If the request method is not POST, create an empty context dictionary
+    context = {}
+
+    return render(request, 'login.html', context)

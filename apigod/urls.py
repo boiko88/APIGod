@@ -16,7 +16,8 @@ urlpatterns = [
     path('email', views.freeEmail, name="email"),
     path('weather', views.weather, name="weather"),
     path('measurement', views.measurement, name="measurement"),
-    path('flags', views.flagsDemo, name="flags"),
     path('generate-password', views.generatePassword, name="generate-password"),
     path('user-register', views.userRegister, name="user-register"),
+    path('logout-user/', views.logoutUser, name="logout-user"),
+    path('login-user/', views.loginUser, name="login-user"),
 ]
