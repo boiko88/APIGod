@@ -3,6 +3,7 @@ from django.contrib import messages
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django.conf import settings as conf_settings
+from django.contrib.auth import authenticate, login, logout
 
 import calendar
 from datetime import datetime
@@ -14,7 +15,7 @@ import random
 from geopy.geocoders import Nominatim
 from pprint import pprint
 
-from .forms import EmailForm, PasswordForm
+from .forms import EmailForm, PasswordForm, CustomUserCreationForm
 
 
 def home(request):
@@ -287,3 +288,27 @@ def generatePassword(request):
     return render(request, 'generate_password.html', context)
 
 
+def userRegister(request):
+    form = CustomUserCreationForm()
+
+    if request.method == 'POST':
+        form = CustomUserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.username = user.username.lower()
+            user.email = form.cleaned_data['email']
+            user.save()
+            # authenticate and log in the user
+            user = authenticate(username=user.username, password=form.cleaned_data['password1'])
+            login(request, user)
+            print('It is ok!')
+            return redirect('home')
+        else:
+            messages.error(
+                request, 'Ooops, something went wrong during the registration')
+            
+    context = {
+        'form': form,
+        }
+    
+    return render(request, 'user_registration.html', context)

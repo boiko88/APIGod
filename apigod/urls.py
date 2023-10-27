@@ -18,4 +18,5 @@ urlpatterns = [
     path('measurement', views.measurement, name="measurement"),
     path('flags', views.flagsDemo, name="flags"),
     path('generate-password', views.generatePassword, name="generate-password"),
+    path('user-register', views.userRegister, name="user-register"),
 ]
