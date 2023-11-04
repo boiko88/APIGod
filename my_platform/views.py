@@ -7,11 +7,11 @@ from django.contrib.auth import authenticate, login, logout
 
 import calendar
 from datetime import datetime
-import folium 
+import folium
 import json
 import requests
 from requests import Session
-import random 
+import random
 from geopy.geocoders import Nominatim
 from pprint import pprint
 
@@ -23,11 +23,11 @@ def home(request):
     return render(request, 'home.html', context)
 
 
-def myTime(request, year=datetime.now().year, month=datetime.now().strftime('%B'), current_day=datetime.now()):
+def my_time(request, year=datetime.now().year, month=datetime.now().strftime('%B'), current_day=datetime.now()):
     month = month.capitalize()
     month_number = list(calendar.month_name).index(month)
     month_number = int(month_number)
-    
+   
     # Get current time
     now = datetime.now()
     current_day = now.day
@@ -136,13 +136,13 @@ def foliumMap(request):
         return render(request, 'fmap.html', context)
 
 
-def googleMap(request):
+def google_map(request):
     context = {
     }
     return render(request, 'gmap.html', context)
 
 
-def freeEmail(request):
+def free_email(request):
     if request.method == 'POST':
         form = EmailForm(request.POST)
 
@@ -178,8 +178,8 @@ def freeEmail(request):
 def weather(request):
     MAIN_URL = 'http://api.openweathermap.org/data/2.5/weather?'
     API_KEY = conf_settings.WEATHER_KEY
-    CITY = 'lat=55.75&lon=37.61' # Moscow
-    CITY_1 = 'lat=59.26&lon=25.75' # Tallinn
+    CITY = 'lat=55.75&lon=37.61'  # Moscow
+    CITY_1 = 'lat=59.26&lon=25.75'  # Tallinn
 
     url = MAIN_URL + CITY + '&units=metric&appid=' + API_KEY
 
@@ -249,7 +249,7 @@ def measurement(request):
     return render(request, 'measurement.html', context)
 
 
-def generatePassword(request):
+def generate_password(request):
     numbers = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0']
     special_symbols = ['+', '-', '/', '*', '!', '&', '$', '#', '?', '=', '@',]
     length = 19
@@ -282,7 +282,7 @@ def generatePassword(request):
     return render(request, 'generate_password.html', context)
 
 
-def userRegister(request):
+def user_register(request):
     form = CustomUserCreationForm()
 
     if request.method == 'POST':
@@ -308,12 +308,12 @@ def userRegister(request):
     return render(request, 'user_registration.html', context)
 
 
-def logoutUser(request):
+def logout_user(request):
     logout(request)
     return redirect('home')
 
 
-def loginUser(request):
+def login_user(request):
     if request.method == 'POST':
         # Get the username and password from the POST data
         username = request.POST.get('username').lower()
