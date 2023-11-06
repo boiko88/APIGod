@@ -199,20 +199,30 @@ def weather(request):
     url6 = MAIN_URL6 + CITY + '&units=metric&appid=' + API_KEY
 
     response2 = requests.get(url6).json()
-    data3h = response2['list'][1]
+    data3h = response2['list'][1]['wind']
     temp3h = response2['list'][1]['main']['temp']
+    wind3h = response2['list'][1]['wind']['speed']
     description3h = response2['list'][1]['weather'][0]['description']
     icon3h = response2['list'][1]['weather'][0]['icon']
     # pprint(data3h)
 
     data6h = response2['list'][2]
     temp6h = response2['list'][2]['main']['temp']
+    wind6h = response2['list'][2]['wind']['speed']
     description6h = response2['list'][2]['weather'][0]['description']
     icon6h = response2['list'][2]['weather'][0]['icon']
     # pprint(data6h)
 
+    data9h = response2['list'][3]
+    temp9h = response2['list'][3]['main']['temp']
+    wind9h = response2['list'][3]['wind']['speed']
+    description9h = response2['list'][3]['weather'][0]['description']
+    icon9h = response2['list'][3]['weather'][0]['icon']
+    # pprint(data6h)
+
     data24h = response2['list'][8]
     temp24h = response2['list'][8]['main']['temp']
+    wind24h = response2['list'][8]['wind']['speed']
     description24h = response2['list'][8]['weather'][0]['description']
     icon24h = response2['list'][8]['weather'][0]['icon']
     # pprint(data24h)
@@ -228,15 +238,24 @@ def weather(request):
         'description': description,
         'icon': icon,
         'temp3h': temp3h,
+        'wind3h': wind3h,
         'description3h': description3h,
         'icon3h': icon3h,
         'temp6h': temp6h,
+        'wind6h': wind6h,
         'description6h': description6h,
         'icon6h': icon6h,
+        'data9h': data9h,
+        'temp9h': temp9h,
+        'wind9h': wind9h,
+        'description9h': description9h,
+        'icon9h': icon9h,
         'data24h': data24h,
         'temp24h': temp24h,
+        'wind24h': wind24h,
         'description24h': description24h,
         'icon24h': icon24h,
+        
 
     }
     return render(request, 'weather.html', context)
