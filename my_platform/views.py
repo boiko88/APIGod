@@ -354,3 +354,9 @@ def login_user(request):
     context = {}
 
     return render(request, 'login.html', context)
+
+
+def user_profile(request):
+    context = {}
+    return render(request, 'user_profile.html', context)
+
