@@ -26,11 +26,3 @@ class CustomUserCreationForm(UserCreationForm):
     class Meta:
         model = User
         fields = ('username', 'email', 'password1', 'password2', 'location')
-
-
-# class CustomUserCreationForm(UserCreationForm):
-#     location = forms.CharField(max_length=250, required=False)
-
-#     class Meta:
-#         model = CustomUser
-#         fields = ('username', 'email', 'password1', 'password2', 'location')

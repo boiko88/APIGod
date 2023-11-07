@@ -315,7 +315,7 @@ def user_register(request):
             user.save()
 
             # # Create a new Customer object and associate it with the new User object
-            # customer = Customer.objects.create(user=user, location=form.cleaned_data['location'])
+            customer = Customer.objects.create(user=user, location=form.cleaned_data['location'])
 
             # authenticate and log in the user
             user = authenticate(username=user.username, password=form.cleaned_data['password1'])

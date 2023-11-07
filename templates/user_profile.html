@@ -20,7 +20,7 @@
                 <form class="form-detail" action="{% url 'user-register' %}" method="post" id="myform">
                     <h2>This is a User Profile page</h2>
                     <h2>Your name is {{ request.user }}</h2>
-                    <h2>Your location is {{ request.user.location }}</h2>
+                    <h2>Your location is {{ customer.location }}</h2>
                     <br>
                 </form>
             </div>
