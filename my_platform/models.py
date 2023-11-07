@@ -8,5 +8,5 @@ class Email(models.Model):
 
 
 class Customer(models.Model):
-    name = models.CharField(User, blank=False, max_length=250)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     location = models.CharField(blank=True, max_length=250)

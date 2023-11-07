@@ -16,6 +16,7 @@ from geopy.geocoders import Nominatim
 from pprint import pprint
 
 from .forms import EmailForm, PasswordForm, CustomUserCreationForm
+from .models import Customer
 
 
 def home(request):
@@ -310,7 +311,12 @@ def user_register(request):
             user = form.save(commit=False)
             user.username = user.username.lower()
             user.email = form.cleaned_data['email']
+            user.location = form.cleaned_data['location']
             user.save()
+
+            # # Create a new Customer object and associate it with the new User object
+            # customer = Customer.objects.create(user=user, location=form.cleaned_data['location'])
+
             # authenticate and log in the user
             user = authenticate(username=user.username, password=form.cleaned_data['password1'])
             login(request, user)
@@ -359,4 +365,3 @@ def login_user(request):
 def user_profile(request):
     context = {}
     return render(request, 'user_profile.html', context)
-
